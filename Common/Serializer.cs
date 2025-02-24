@@ -1,6 +1,6 @@
 namespace Common;
 
-public class Serilizer {
+public class Serializer {
     public static byte[] Utf8Decoding(string data) {
         return System.Text.Encoding.UTF8.GetBytes(data);
     }

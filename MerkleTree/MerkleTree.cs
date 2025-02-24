@@ -29,14 +29,14 @@ public class MerkleTree {
     public string Build(string[] payloads, string leaf_tag, string branch_tag) {
         this.Clear();
 
-        this.LeafHashTag = Common.Serilizer.Utf8Decoding(leaf_tag);
-        this.BranchHashTag = Common.Serilizer.Utf8Decoding(branch_tag);
+        this.LeafHashTag = Common.Serializer.Utf8Decoding(leaf_tag);
+        this.BranchHashTag = Common.Serializer.Utf8Decoding(branch_tag);
 
         Queue<MerkleTreeNode> order = new Queue<MerkleTreeNode>();
 
         byte[] leaf_hash = Array.Empty<byte>();
         foreach (string payload in payloads) {
-            leaf_hash = this.LeafHashFun(Common.Serilizer.Utf8Decoding(payload));
+            leaf_hash = this.LeafHashFun(Common.Serializer.Utf8Decoding(payload));
             MerkleTreeNode node = new MerkleTreeNode(leaf_hash);
             order.Enqueue(node);
             this.entrances.Add(payload, node);
@@ -73,7 +73,7 @@ public class MerkleTree {
 
         if (order.Count == 1) {
             this.root = order.Dequeue();
-            return Common.Serilizer.HexEncoding(root.hash);
+            return Common.Serializer.HexEncoding(root.hash);
         }
         return "";
     }
@@ -89,9 +89,9 @@ public class MerkleTree {
         Console.WriteLine("============================================================");
         foreach (KeyValuePair<string, MerkleTreeNode> kv in this.entrances) {
             MerkleTreeNode node = kv.Value;
-            Console.Write("{0}", Common.Serilizer.HexEncoding(node.hash));
+            Console.Write("{0}", Common.Serializer.HexEncoding(node.hash));
             while (node.parent != null) {
-                Console.Write(" -> {0}", Common.Serilizer.HexEncoding(node.parent.hash));
+                Console.Write(" -> {0}", Common.Serializer.HexEncoding(node.parent.hash));
                 node = node.parent;
             }
             Console.WriteLine();
