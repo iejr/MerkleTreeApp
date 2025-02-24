@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerkleTreeTest", "MerkleTreeTest\MerkleTreeTest.csproj", "{86654AC3-9A59-459A-80B5-4D3BDAC2E465}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerkleTreeTest", "MerkleTreeMain\MerkleTreeTest.csproj", "{3D2F2D6C-3E7F-4A8B-8763-0447572C1883}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerkleTreeMain", "MerkleTreeMain\MerkleTreeMain.csproj", "{BAE817C9-18C4-40DB-98AE-262A0BBF86A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +28,10 @@ Global
 		{86654AC3-9A59-459A-80B5-4D3BDAC2E465}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86654AC3-9A59-459A-80B5-4D3BDAC2E465}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86654AC3-9A59-459A-80B5-4D3BDAC2E465}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D2F2D6C-3E7F-4A8B-8763-0447572C1883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D2F2D6C-3E7F-4A8B-8763-0447572C1883}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D2F2D6C-3E7F-4A8B-8763-0447572C1883}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D2F2D6C-3E7F-4A8B-8763-0447572C1883}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAE817C9-18C4-40DB-98AE-262A0BBF86A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAE817C9-18C4-40DB-98AE-262A0BBF86A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAE817C9-18C4-40DB-98AE-262A0BBF86A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAE817C9-18C4-40DB-98AE-262A0BBF86A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

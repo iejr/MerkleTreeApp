@@ -5,7 +5,6 @@ class Program {
         string[] payloads = {"a"};
         const string leaf_tag = "";
         const string branch_tag = "";
-
         var merkle_tree = new MerkleTree.MerkleTree();
         merkle_tree.Build(payloads, leaf_tag, branch_tag);
         merkle_tree.Show();
