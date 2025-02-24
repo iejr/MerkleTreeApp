@@ -4,7 +4,7 @@ using MerkleTree;
 
 class Program {
     static void Main() {
-        string[] payloads = {"aaa", "bbb", "ccc", "ddd", "eee"};
+        string[] payloads = {"a"};
         const string leaf_tag = "";
         const string branch_tag = "";
 
