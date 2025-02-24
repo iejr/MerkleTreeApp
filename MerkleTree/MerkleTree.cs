@@ -1,43 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace MerkleTree;
-
-class Hash {
-
-    public static byte[] Utf8Decoding(string data) {
-        return System.Text.Encoding.UTF8.GetBytes(data);
-    }
-
-    public static byte[] Sha256Hash(byte[] data) {
-        SHA256 manager = SHA256.Create();
-        return manager.ComputeHash(data);
-    }
-
-    public static string HexEncoding(byte[] data) {
-        return BitConverter.ToString(data).Replace("-", string.Empty).ToLower();
-    }
-
-    public static byte[] ConcatBytes(byte[] array1, byte[] array2) {
-        byte[] buffer = new byte[array1.Length + array2.Length];
-        System.Buffer.BlockCopy(array1, 0, buffer, 0, array1.Length);
-        System.Buffer.BlockCopy(array2, 0, buffer, array1.Length, array2.Length);
-        return buffer;
-    }
-
-    public static byte[] Concat3Bytes(byte[] array1, byte[] array2, byte[] array3) {
-        byte[] buffer = new byte[array1.Length + array2.Length + array3.Length];
-        System.Buffer.BlockCopy(array1, 0, buffer, 0, array1.Length);
-        System.Buffer.BlockCopy(array2, 0, buffer, array1.Length, array2.Length);
-        System.Buffer.BlockCopy(array3, 0, buffer, array1.Length + array2.Length, array3.Length);
-        return buffer;
-    }
-
-    public static byte[] TagHash(byte[] data, byte[] tag) {
-        byte[] tag_hash = Sha256Hash(tag);
-        byte[] buffer = Concat3Bytes(tag_hash, tag_hash, Sha256Hash(data));
-        return Sha256Hash(buffer);
-    }
-}
+﻿namespace MerkleTree;
 
 public class MerkleTreeNode {
     public byte[] hash;
@@ -53,17 +14,34 @@ public class MerkleTreeNode {
 
 public class MerkleTree {
     public MerkleTreeNode? root = null;
+    public byte[] LeafHashTag = Array.Empty<byte>();
+    public byte[] BranchHashTag = Array.Empty<byte>();
     Dictionary<string, MerkleTreeNode> entrances = new Dictionary<string, MerkleTreeNode>();
 
+    byte[] LeafHashFun(byte[] data) {
+        return Common.Hash.TagHash(data, this.LeafHashTag);
+    }
+
+    byte[] BranchHashFun(byte[] data) {
+        return Common.Hash.TagHash(data, this.BranchHashTag);
+    }
+
     public string Build(string[] payloads, string leaf_tag, string branch_tag) {
+        this.Clear();
+
+        this.LeafHashTag = Common.Serializer.Utf8Decoding(leaf_tag);
+        this.BranchHashTag = Common.Serializer.Utf8Decoding(branch_tag);
+
         Queue<MerkleTreeNode> order = new Queue<MerkleTreeNode>();
+
         byte[] leaf_hash = Array.Empty<byte>();
         foreach (string payload in payloads) {
-            leaf_hash = Hash.TagHash(Hash.Utf8Decoding(payload), Hash.Utf8Decoding(leaf_tag));
+            leaf_hash = this.LeafHashFun(Common.Serializer.Utf8Decoding(payload));
             MerkleTreeNode node = new MerkleTreeNode(leaf_hash);
             order.Enqueue(node);
             this.entrances.Add(payload, node);
         }
+
         if (order.Count > 1 && (order.Count & 1) == 1) {
             MerkleTreeNode node = new MerkleTreeNode(leaf_hash);
             order.Enqueue(node);
@@ -74,8 +52,9 @@ public class MerkleTree {
             while (level_size > 1) {
                 MerkleTreeNode left_child = order.Dequeue();
                 MerkleTreeNode right_child = order.Dequeue();
+                level_size -= 2;
 
-                byte[] branch_hash = Hash.TagHash(Hash.ConcatBytes(left_child.hash, right_child.hash), Hash.Utf8Decoding(branch_tag));
+                byte[] branch_hash = this.BranchHashFun(Common.Utility.ConcatBytes(left_child.hash, right_child.hash));
                 MerkleTreeNode node = new MerkleTreeNode(branch_hash);
 
                 left_child.parent = node;
@@ -85,8 +64,6 @@ public class MerkleTree {
                 right_child.sibling = left_child;
 
                 order.Enqueue(node);
-
-                level_size -= 2;
             }
 
             if (level_size == 1) {
@@ -96,18 +73,25 @@ public class MerkleTree {
 
         if (order.Count == 1) {
             this.root = order.Dequeue();
-            return Hash.HexEncoding(root.hash);
+            return Common.Serializer.HexEncoding(root.hash);
         }
         return "";
+    }
+
+    public void Clear() {
+        this.root = null;
+        this.LeafHashTag = Array.Empty<byte>();
+        this.BranchHashTag = Array.Empty<byte>();
+        this.entrances.Clear();
     }
 
     public void Show() {
         Console.WriteLine("============================================================");
         foreach (KeyValuePair<string, MerkleTreeNode> kv in this.entrances) {
             MerkleTreeNode node = kv.Value;
-            Console.Write("{0}", Hash.HexEncoding(node.hash));
+            Console.Write("{0}", Common.Serializer.HexEncoding(node.hash));
             while (node.parent != null) {
-                Console.Write(" -> {0}", Hash.HexEncoding(node.parent.hash));
+                Console.Write(" -> {0}", Common.Serializer.HexEncoding(node.parent.hash));
                 node = node.parent;
             }
             Console.WriteLine();
