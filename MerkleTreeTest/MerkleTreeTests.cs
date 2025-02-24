@@ -1,5 +1,3 @@
-using MerkleTree;
-
 namespace MerkleTreeTest;
 
 public class MerkleTreeTests
