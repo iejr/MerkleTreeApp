@@ -1,6 +1,6 @@
 @MerkleTreeApi_HostAddress = http://localhost:5296
 
-GET {{MerkleTreeApi_HostAddress}}/api/userbalance/create
+POST {{MerkleTreeApi_HostAddress}}/api/userbalance/create
 Accept: application/json
 
 ###
