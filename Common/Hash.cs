@@ -11,7 +11,7 @@ public class Hash {
 
     public static byte[] TagHash(byte[] data, byte[] tag) {
         byte[] tag_hash = Sha256Hash(tag);
-        byte[] buffer = Utility.Concat3Bytes(tag_hash, tag_hash, Sha256Hash(data));
+        byte[] buffer = Utility.Concat3Bytes(tag_hash, tag_hash, data);
         return Sha256Hash(buffer);
     }
 }

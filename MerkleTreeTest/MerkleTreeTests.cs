@@ -21,7 +21,7 @@ public class MerkleTreeTests
 
         var merkle_tree = new MerkleTree.MerkleTree();
         string root_hash = merkle_tree.Build(payloads, leaf_tag, branch_tag);
-        Assert.Equal("fc599dda7553c203a3ff32187bf1529b4ef53943ff425d6569f11b418e019bc1", root_hash);
+        Assert.Equal("df353dc99624bd3a86e61ff712ae4dfcf7341312207acf89220febccc6088981", root_hash);
     }
 
     [Fact]
@@ -32,7 +32,7 @@ public class MerkleTreeTests
 
         var merkle_tree = new MerkleTree.MerkleTree();
         string root_hash = merkle_tree.Build(payloads, leaf_tag, branch_tag);
-        Assert.Equal("589aa42d9b10b2bdc235ce7c7729c1aa727187a0a4d84f3c1cc83e62d594a27f", root_hash);
+        Assert.Equal("ce1dea40688951931880427e03f4fc89741a1b727424ee3349671858e95a9227", root_hash);
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class MerkleTreeTests
 
         var merkle_tree = new MerkleTree.MerkleTree();
         string root_hash = merkle_tree.Build(payloads, leaf_tag, branch_tag);
-        Assert.Equal("589aa42d9b10b2bdc235ce7c7729c1aa727187a0a4d84f3c1cc83e62d594a27f", root_hash);
+        Assert.Equal("ce1dea40688951931880427e03f4fc89741a1b727424ee3349671858e95a9227", root_hash);
     }
 
     [Fact]
@@ -54,7 +54,7 @@ public class MerkleTreeTests
 
         var merkle_tree = new MerkleTree.MerkleTree();
         string root_hash = merkle_tree.Build(payloads, leaf_tag, branch_tag);
-        Assert.Equal("13581576d58d7daaab1f1cc6e6812fb54cc6e03ea8cedfeec1713fd60578044e", root_hash);
+        Assert.Equal("ac948e99d8b9cba7696cc914cbf1d300b457d94bdefa37fb85a4b15d43978866", root_hash);
     }
 
     [Fact]
@@ -65,7 +65,7 @@ public class MerkleTreeTests
 
         var merkle_tree = new MerkleTree.MerkleTree();
         string root_hash = merkle_tree.Build(payloads, leaf_tag, branch_tag);
-        Assert.Equal("795ff52ba643da284182adc4bebe68dfcd25a48a41b2c552ebd3b8731b2d1381", root_hash);
+        Assert.Equal("ea5c29ddb781d6a00344c0194dde7eaf062852a89950543503a095b004951a13", root_hash);
     }
 
     [Fact]
@@ -76,6 +76,6 @@ public class MerkleTreeTests
 
         var merkle_tree = new MerkleTree.MerkleTree();
         string root_hash = merkle_tree.Build(payloads, leaf_tag, branch_tag);
-        Assert.Equal("815b52897c579d5f1540f2066223c73e9a5b0c1b7fe326bf31eaae0f68911cca", root_hash);
+        Assert.Equal("a6299a061ce5cc402f6117b6f68124ca1f6c157314c3406d73e3252636da6ae2", root_hash);
     }
 }
