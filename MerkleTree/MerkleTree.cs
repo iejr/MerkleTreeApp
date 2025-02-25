@@ -1,14 +1,33 @@
-﻿namespace MerkleTree;
+﻿using Common;
+
+namespace MerkleTree;
 
 public class MerkleTreeNode {
+    public enum ChildPosition {
+        Left,
+        Right,
+    }
+
     public byte[] hash;
     public MerkleTreeNode? parent;
     public MerkleTreeNode? sibling;
+
+    public ChildPosition pos;
 
     public MerkleTreeNode (byte[] hash) {
         this.hash = hash;
         this.parent = null;
         this.sibling = null;
+    }
+}
+
+public class MerkleProofNode {
+    public string hex_hash;
+    public MerkleTreeNode.ChildPosition pos;
+
+    public MerkleProofNode(string hex_hash, MerkleTreeNode.ChildPosition pos) {
+        this.hex_hash = hex_hash;
+        this.pos = pos;
     }
 }
 
@@ -54,6 +73,9 @@ public class MerkleTree {
                 MerkleTreeNode right_child = order.Dequeue();
                 level_size -= 2;
 
+                left_child.pos = MerkleTreeNode.ChildPosition.Left;
+                right_child.pos = MerkleTreeNode.ChildPosition.Right;
+
                 byte[] branch_hash = this.BranchHashFun(Common.Utility.ConcatBytes(left_child.hash, right_child.hash));
                 MerkleTreeNode node = new MerkleTreeNode(branch_hash);
 
@@ -76,6 +98,21 @@ public class MerkleTree {
             return Common.Serializer.HexEncoding(root.hash);
         }
         return "";
+    }
+
+    public MerkleProofNode[] Proof(string query) {
+        if (!this.entrances.ContainsKey(query)) {
+            return [];
+        }
+
+        List<MerkleProofNode> path = new();
+        MerkleTreeNode node = this.entrances[query];
+        while (node != null) {
+            MerkleProofNode segment = new(Serializer.HexEncoding(node.hash), node.pos);
+            path.Add(segment);
+        }
+
+        return path.ToArray();
     }
 
     public void Clear() {
