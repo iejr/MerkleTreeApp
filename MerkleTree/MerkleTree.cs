@@ -24,11 +24,6 @@ public class MerkleTreeNode {
 public class MerkleProofNode {
     public string hex_hash;
     public MerkleTreeNode.ChildPosition pos;
-
-    public MerkleProofNode(string hex_hash, MerkleTreeNode.ChildPosition pos) {
-        this.hex_hash = hex_hash;
-        this.pos = pos;
-    }
 }
 
 public class MerkleTree {
@@ -108,8 +103,8 @@ public class MerkleTree {
         List<MerkleProofNode> path = new();
         MerkleTreeNode node = this.entrances[query];
         while (node != null) {
-            MerkleProofNode segment = new(Serializer.HexEncoding(node.hash), node.pos);
-            path.Add(segment);
+            path.Add(new MerkleProofNode { hex_hash = Serializer.HexEncoding(node.hash), pos = node.pos });
+            node = node.parent;
         }
 
         return path.ToArray();

@@ -1,3 +1,4 @@
+using MerkleTree;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MerkleTreeApi.Controllers;
@@ -12,50 +13,48 @@ public class GetBalanceRequest {
     public int user_id { get; set; }
 }
 
-public class User {
-    public int id { get; set;}
+public class GetBalanceResponse {
     public int balance { get; set; }
-
-    public string Serialization() {
-        return string.Format("({0},{1})", this.id, this.balance);
-    }
+    public MerkleProofNode[] proofs { get; set; }
 }
 
 [ApiController]
 [Route("api/[controller]")]
 public class UserBalanceController : ControllerBase
 {
-    private readonly ILogger<UserBalanceController> _logger;
+    private readonly IUserStateService _user_state_service;
 
-    private  MerkleTree.MerkleTree _merkle_tree;
-    private Dictionary<int, User> _user_records;
-
-    public UserBalanceController(ILogger<UserBalanceController> logger)
+    public UserBalanceController(IUserStateService user_state_service)
     {
-        _logger = logger;
-        _merkle_tree = new MerkleTree.MerkleTree();
-        _user_records = new Dictionary<int, User>();
+        _user_state_service = user_state_service;
     }
 
     [HttpPost("create")]
     public IActionResult Create([FromBody] CreateRequest request) {
-        this._user_records = request.user_data.ToDictionary(e => e.id, e => e);
+        this._user_state_service.user_state = request.user_data.ToDictionary(e => e.id, e => e);
         // Console.WriteLine("Show user id {0}", request.user_data[0].id);
 
         string[] payloads = request.user_data.ConvertAll(e => e.Serialization()).ToArray(); 
-        string result = _merkle_tree.Build(payloads, request.leaf_tag!, request.branch_tag!);
+        string result = _user_state_service.merkle_tree.Build(payloads, request.leaf_tag!, request.branch_tag!);
         return Ok(new { Status = "Ok", Details = result });;
     }
 
     [HttpPost("getbalance")]
     public IActionResult GetBalance([FromBody] GetBalanceRequest request) {
         // Console.WriteLine("Show user id {0}", request.user_id);
-        if (!this._user_records.ContainsKey(request.user_id)) {
+        Console.WriteLine("Show state count {0}", this._user_state_service.user_state.Count);
+        if (!this._user_state_service.user_state.ContainsKey(request.user_id)) {
             return NotFound(new { Message = "User Id not found" });
         }
 
-        string query = this._user_records[request.user_id].Serialization();
-        var result = _merkle_tree.Proof(query);
-        return Ok(new { Status = "Ok", Details = result });;
+        User user = this._user_state_service.user_state[request.user_id];
+        string query = user.Serialization();
+        var result = this._user_state_service.merkle_tree.Proof(query);
+
+        var response = new GetBalanceResponse {
+            balance = user.balance,
+            proofs = result,
+        };
+        return Ok(response);
     }
 }
