@@ -7,7 +7,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<MerkleTreeApi.IUserStateService, MerkleTreeApi.UserStateService>();
+builder.Services.AddSingleton<MerkleTreeApi.Services.IUserStateService, MerkleTreeApi.Services.UserStateService>();
 
 var app = builder.Build();
 

@@ -6,9 +6,9 @@ namespace MerkleTreeApi.Controllers;
 [Route("api/[controller]")]
 public class UserBalanceController : ControllerBase
 {
-    private readonly IUserStateService _user_state_service;
+    private readonly Services.IUserStateService _user_state_service;
 
-    public UserBalanceController(IUserStateService user_state_service)
+    public UserBalanceController(Services.IUserStateService user_state_service)
     {
         _user_state_service = user_state_service;
     }
@@ -28,7 +28,7 @@ public class UserBalanceController : ControllerBase
             return NotFound(new { Message = "User Id not found" });
         }
 
-        User user = this._user_state_service.user_state[request.user_id];
+        Models.User user = this._user_state_service.user_state[request.user_id];
         string query = user.Serialization();
         var result = this._user_state_service.merkle_tree.Proof(query);
 
