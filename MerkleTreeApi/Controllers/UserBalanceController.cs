@@ -32,7 +32,6 @@ public class UserBalanceController : ControllerBase
     [HttpPost("create")]
     public IActionResult Create([FromBody] CreateRequest request) {
         this._user_state_service.user_state = request.user_data.ToDictionary(e => e.id, e => e);
-        // Console.WriteLine("Show user id {0}", request.user_data[0].id);
 
         string[] payloads = request.user_data.ConvertAll(e => e.Serialization()).ToArray(); 
         string result = _user_state_service.merkle_tree.Build(payloads, request.leaf_tag!, request.branch_tag!);
@@ -41,8 +40,6 @@ public class UserBalanceController : ControllerBase
 
     [HttpPost("getbalance")]
     public IActionResult GetBalance([FromBody] GetBalanceRequest request) {
-        // Console.WriteLine("Show user id {0}", request.user_id);
-        Console.WriteLine("Show state count {0}", this._user_state_service.user_state.Count);
         if (!this._user_state_service.user_state.ContainsKey(request.user_id)) {
             return NotFound(new { Message = "User Id not found" });
         }
