@@ -22,8 +22,8 @@ public class MerkleTreeNode {
 }
 
 public class MerkleProofNode {
-    public string hex_hash;
-    public MerkleTreeNode.ChildPosition pos;
+    public string hex_hash { get; set; }
+    public MerkleTreeNode.ChildPosition pos { get; set; }
 }
 
 public class MerkleTree {
