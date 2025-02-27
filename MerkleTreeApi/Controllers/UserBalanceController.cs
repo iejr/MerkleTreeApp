@@ -1,22 +1,6 @@
-using MerkleTree;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MerkleTreeApi.Controllers;
-
-public class CreateRequest {
-    public List<User> user_data { get; set; } = new();
-    public string? leaf_tag { get; set; }
-    public string? branch_tag { get; set; }
-}
-
-public class GetBalanceRequest {
-    public int user_id { get; set; }
-}
-
-public class GetBalanceResponse {
-    public int balance { get; set; }
-    public MerkleProofNode[] proofs { get; set; }
-}
 
 [ApiController]
 [Route("api/[controller]")]
@@ -30,16 +14,16 @@ public class UserBalanceController : ControllerBase
     }
 
     [HttpPost("create")]
-    public IActionResult Create([FromBody] CreateRequest request) {
+    public IActionResult Create([FromBody] Models.CreateRequest request) {
         this._user_state_service.user_state = request.user_data.ToDictionary(e => e.id, e => e);
 
         string[] payloads = request.user_data.ConvertAll(e => e.Serialization()).ToArray(); 
         string result = _user_state_service.merkle_tree.Build(payloads, request.leaf_tag!, request.branch_tag!);
-        return Ok(new { Status = "Ok", Details = result });;
+        return Ok(new Models.CreateResponse { root_hash = result });;
     }
 
     [HttpPost("getbalance")]
-    public IActionResult GetBalance([FromBody] GetBalanceRequest request) {
+    public IActionResult GetBalance([FromBody] Models.GetBalanceRequest request) {
         if (!this._user_state_service.user_state.ContainsKey(request.user_id)) {
             return NotFound(new { Message = "User Id not found" });
         }
@@ -48,7 +32,7 @@ public class UserBalanceController : ControllerBase
         string query = user.Serialization();
         var result = this._user_state_service.merkle_tree.Proof(query);
 
-        var response = new GetBalanceResponse {
+        var response = new Models.GetBalanceResponse {
             balance = user.balance,
             proofs = result,
         };
