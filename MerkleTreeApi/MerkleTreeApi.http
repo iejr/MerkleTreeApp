@@ -3,4 +3,7 @@
 POST {{MerkleTreeApi_HostAddress}}/api/userbalance/create
 Accept: application/json
 
+POST {{MerkleTreeApi_HostAddress}}/api/userbalance/getbalance
+Accept: application/json
+
 ###
