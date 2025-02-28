@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerkleTreeMain", "MerkleTre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerkleTreeApi", "MerkleTreeApi\MerkleTreeApi.csproj", "{D3235225-2258-444E-9078-4429535E361A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerkleTreeApiTest", "MerkleTreeApiTest\MerkleTreeApiTest.csproj", "{89321610-AE6F-4F79-8815-7DE25B1F4290}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{D3235225-2258-444E-9078-4429535E361A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3235225-2258-444E-9078-4429535E361A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3235225-2258-444E-9078-4429535E361A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89321610-AE6F-4F79-8815-7DE25B1F4290}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89321610-AE6F-4F79-8815-7DE25B1F4290}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89321610-AE6F-4F79-8815-7DE25B1F4290}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89321610-AE6F-4F79-8815-7DE25B1F4290}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
