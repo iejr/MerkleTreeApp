@@ -25,7 +25,7 @@ public class UserBalanceController : ControllerBase
     [HttpPost("getbalance")]
     public IActionResult GetBalance([FromBody] Models.GetBalanceRequest request) {
         if (!this._user_state_service.user_state.ContainsKey(request.user_id)) {
-            return NotFound(new { Message = "User Id not found" });
+            return NotFound("User Id not found");
         }
 
         Models.User user = this._user_state_service.user_state[request.user_id];
