@@ -18,7 +18,9 @@ public class UserBalanceController : ControllerBase
         this._user_state_service.user_state = request.user_data.ToDictionary(e => e.id, e => e);
 
         string[] payloads = request.user_data.ConvertAll(e => e.Serialization()).ToArray(); 
-        string result = _user_state_service.merkle_tree.Build(payloads, request.leaf_tag!, request.branch_tag!);
+        string leaf_tag = request.leaf_tag == null ? Models.Default.leaf_tag : request.leaf_tag;
+        string branch_tag = request.branch_tag == null ? Models.Default.branch_tag : request.branch_tag;
+        string result = _user_state_service.merkle_tree.Build(payloads, leaf_tag, branch_tag);
         return Ok(new Models.CreateResponse { root_hash = result });;
     }
 
