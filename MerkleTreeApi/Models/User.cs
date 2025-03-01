@@ -1,5 +1,6 @@
 namespace MerkleTreeApi.Models;
 
+// Class model a user
 public class User {
     public int id { get; set;}
     public int balance { get; set; }

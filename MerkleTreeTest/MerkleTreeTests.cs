@@ -2,6 +2,9 @@ namespace MerkleTreeTest;
 
 public class MerkleTreeTests
 {
+    /*
+     *  Test against empty input inputs and empty tags
+     */
     [Fact]
     public void EmptyInputListNoTag_ReturnsCorrectHash() {
         string[] payloads = [];
@@ -13,6 +16,9 @@ public class MerkleTreeTests
         Assert.Equal("", root_hash);
     }
 
+    /*
+     *  Test against input with single element and empty tags
+     */
     [Fact]
     public void SingleNodeNoTag_ReturnsCorrectRootHash() {
         string[] payloads = ["a"];
@@ -24,6 +30,9 @@ public class MerkleTreeTests
         Assert.Equal("df353dc99624bd3a86e61ff712ae4dfcf7341312207acf89220febccc6088981", root_hash);
     }
 
+    /*
+     * Test against input with single element and tags with same content
+     */
     [Fact]
     public void SingleNodeWithSameTags_ReturnsCorrectRootHash() {
         string[] payloads = ["a"];
@@ -35,6 +44,9 @@ public class MerkleTreeTests
         Assert.Equal("ce1dea40688951931880427e03f4fc89741a1b727424ee3349671858e95a9227", root_hash);
     }
 
+    /*
+     *  Test against input with the single element and tags with different content
+     */
     [Fact]
     public void SingleNodeWithDifferentTags_ReturnsCorrectRootHash() {
         string[] payloads = ["a"];
@@ -46,6 +58,10 @@ public class MerkleTreeTests
         Assert.Equal("ce1dea40688951931880427e03f4fc89741a1b727424ee3349671858e95a9227", root_hash);
     }
 
+    /*
+     *  Test against input with four elements (perfect number) and tags with the same
+     *  content
+     */
     [Fact]
     public void PerfectNodesWithSameTags_ReturnsCorrectRootHash() {
         string[] payloads = ["111", "222", "333", "444"];
@@ -57,6 +73,10 @@ public class MerkleTreeTests
         Assert.Equal("ac948e99d8b9cba7696cc914cbf1d300b457d94bdefa37fb85a4b15d43978866", root_hash);
     }
 
+    /*
+     *  Test against input with five elements (odd number) and tags with the same
+     *  content
+     */
     [Fact]
     public void OddNodesWithSameTags_ReturnsCorrectRootHash() {
         string[] payloads = ["aaa", "bbb", "ccc", "ddd", "eee"];
@@ -68,6 +88,10 @@ public class MerkleTreeTests
         Assert.Equal("ea5c29ddb781d6a00344c0194dde7eaf062852a89950543503a095b004951a13", root_hash);
     }
 
+    /*
+     * Test against input with five elements (odd number) and tags with different
+     * contennt
+     */
     [Fact]
     public void OddNodesWithDifferentTags_ReturnsCorrectRootHash() {
         string[] payloads = ["aaa", "bbb", "ccc", "ddd", "eee"];

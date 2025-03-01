@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-class Program {
+class MerkleTreeMain {
+    // A console application building a merkle tree and show it
     static void Main() {
         string[] payloads = {"a"};
         const string leaf_tag = "";

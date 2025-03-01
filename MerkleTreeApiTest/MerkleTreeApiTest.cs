@@ -8,6 +8,9 @@ namespace MerkleTreeApiTest;
 
 public class MerkleTreeApiTest
 {
+    /*
+     *  Test Create Api againest eight data points
+     */
     [Fact]
     public void Create_ReturnsOkResult_WithCorrectRootHash() {
         Mock<IUserStateService> mockUserStateService = new Mock<IUserStateService>();
@@ -43,6 +46,9 @@ public class MerkleTreeApiTest
         Assert.Equal(JsonSerializer.Serialize(expect), JsonSerializer.Serialize(actual));
     }
 
+    /*
+     *  Test GetBalance Api with user in the tree 
+     */
     [Fact]
     public void GetBalance_ReturnsOkResult_WithCorrectMerkleProof() {
         Mock<IUserStateService> mockUserStateService = new Mock<IUserStateService>();
@@ -87,6 +93,9 @@ public class MerkleTreeApiTest
         Assert.Equal(JsonSerializer.Serialize(expect), JsonSerializer.Serialize(actual));
     }
     
+    /*
+     *  Test GetBalance Api with user that is not in the tree 
+     */
     [Fact]
     public void GetBalance_ReturnsUserNotFoundResult_WithCorrectMessage() {
         Mock<IUserStateService> mockUserStateService = new Mock<IUserStateService>();
