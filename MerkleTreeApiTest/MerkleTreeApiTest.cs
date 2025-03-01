@@ -66,23 +66,19 @@ public class MerkleTreeApiTest
         UserBalanceController controller = new UserBalanceController(mockUserStateService.Object);
 
         GetBalanceRequest request = new GetBalanceRequest {
-            user_id = 2,
+            user_id = 1,
         };
         var result = controller.GetBalance(request) as OkObjectResult;
 
         Assert.NotNull(result);
         Assert.Equal(200, result.StatusCode);
 
-        var expect = new GetBalanceResponse {
-            balance = 2222,
+        GetBalanceResponse expect = new GetBalanceResponse {
+            balance = 1111,
             proofs = [
                 new MerkleTree.MerkleProofNode {
                     hex_hash = "b723d835092b192a9af84df34d20b5f27bea8b7b1015bfeb6e3178c55579b35a",
                     pos = MerkleTree.MerkleTreeNode.ChildPosition.Right,
-                },
-                new MerkleTree.MerkleProofNode {
-                    hex_hash = "9eeb55bd94c28650c8e136c46b057c9d0c3b95fbadebfb5d0ac4b2d01b64830e",
-                    pos = MerkleTree.MerkleTreeNode.ChildPosition.Left,
                 },
             ],
         };

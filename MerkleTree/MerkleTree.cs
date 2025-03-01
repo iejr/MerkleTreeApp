@@ -97,13 +97,24 @@ public class MerkleTree {
 
     public MerkleProofNode[] Proof(string query) {
         if (!this.entrances.ContainsKey(query)) {
+            // No match found, return empty result
             return [];
         }
 
         List<MerkleProofNode> path = new();
         MerkleTreeNode node = this.entrances[query];
         while (node != null) {
-            path.Add(new MerkleProofNode { hex_hash = Serializer.HexEncoding(node.hash), pos = node.pos });
+            if (node.sibling == null || node.parent == null) {
+                // Already reach root, leave loop
+                break;
+            }
+            MerkleTreeNode proof_node = node.sibling;
+            path.Add(
+                new MerkleProofNode {
+                    hex_hash = Serializer.HexEncoding(proof_node.hash),
+                    pos = proof_node.pos
+                }
+            );
             node = node.parent;
         }
 
