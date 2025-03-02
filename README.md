@@ -3,10 +3,10 @@ This is a merkle tree demo project, contains a merkle tree library, console appl
 
 ## Project Structure
  /
- ├── MerkleTree/              # Merkle Tree Library, include the core data structures and algorithms
- ├── MerkleTreeTest/          # Merkle Tree Library Unit Test
- ├── MerkleTreeMain/          # Console Application for Merkle Tree
- ├── MerkleTreeApi/           # Webapi of Merkle Tree
+ ├── MerkleTree/              # Merkle Tree Library, include the core data structures and algorithms  
+ ├── MerkleTreeTest/          # Merkle Tree Library Unit Test  
+ ├── MerkleTreeMain/          # Console Application for Merkle Tree  
+ ├── MerkleTreeApi/           # Webapi of Merkle Tree  
  ├── MerkleTreeApiTest/       # Merkle Tree Webapi Unit Tests
 
 ## MerkleTree
